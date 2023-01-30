@@ -24,8 +24,10 @@ You want to test that the project 1 user has correct access configured. So you:
 build and publish a nodejs tar package to the npm repo
 Use: Node application from Cloud & IaaS Basics exercises
 
-Hint:
-for publishing project tar file npm publish --registry={npm-repo-url-in-nexus} {package-name}
+### Hint:
+
+#### for publishing project tar file:
+npm publish --registry={npm-repo-url-in-nexus} {package-name}
 
 ### EXERCISE 5: Create maven hosted repository
 For a Java application you:
@@ -44,13 +46,24 @@ Create new user for droplet server that has access to both repositories
 On a digital ocean droplet, using Nexus Rest API, fetch the download URL info for the latest NodeJS app artifact
 Execute a command to fetch the latest artifact itself with the download URL
 Untar it and run on the server!
-Hint:
-fetch download URL with curl curl -u {user}:{password} -X GET ‘http://{nexus-ip}:8081/service/rest/v1/components?repository={node-repo}&sort=version’
+
+### Hint:
+
+#### fetch download URL with curl:
+curl -u {user}:{password} -X GET ‘http://{nexus-ip}:8081/service/rest/v1/components?repository={node-repo}&sort=version’
 
 ### EXERCISE 9: Automate
 You decide to automate the fetching from Nexus and starting the application So you:
 Write a script that fetches the latest version from npm repository. Untar it and run on the server!
 Execute the script on the droplet
 
-Hints:
-save the artifact details in a json file curl -u {user}:{password} -X GET ‘http://{nexus-ip}:8081/service/rest/v1/components?repository={node-repo}&sort=version’ | jq “.” > artifact.json # grab the download url from the saved artifact details using ‘jq’ json processor tool artifactDownloadUrl=$(jq ‘.items[].assets[].downloadUrl’ artifact.json --raw-output) # fetch the artifact with the extracted download url using ‘wget’ tool wget --http-user={user} --http-password={password} $artifactDownloadUrl
+### Hints:
+
+#### save the artifact details in a json file: 
+curl -u {user}:{password} -X GET ‘http://{nexus-ip}:8081/service/rest/v1/components?repository={node-repo}&sort=version’ | jq “.” > artifact.json
+
+#### grab the download url from the saved artifact details using ‘jq’ json processor tool
+artifactDownloadUrl=$(jq ‘.items[].assets[].downloadUrl’ artifact.json --raw-output)
+
+#### fetch the artifact with the extracted download url using ‘wget’ tool
+wget --http-user={user} --http-password={password} $artifactDownloadUrl
